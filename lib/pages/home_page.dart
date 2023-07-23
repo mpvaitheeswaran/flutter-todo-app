@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/constants/colors.dart';
+import 'package:flutter_todo_app/model/todo.dart';
+import 'package:flutter_todo_app/widgets/todo_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<TODO> todoList = TODO.todoList();
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _todoAppBar(),
@@ -14,6 +17,24 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             SearchBox(),
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 50, bottom: 20),
+                    child: Text(
+                      "All ToDos",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  for (TODO todo in todoList)
+                    ToDoItem(
+                      todo: todo,
+                    ),
+                ],
+              ),
+            )
           ],
         ),
       ),
